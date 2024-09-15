@@ -1,6 +1,6 @@
 # VSCO Gallery Clone
 
-This is a basic clone of a VSCO gallery, currently optimized for mobile formatting and not meant for desktop yet. Unlike the official VSCO platform, this gallery does not require a login to view all images, making it more user-friendly for casual viewing.
+This is a basic clone of a VSCO gallery, currently optimized for mobile formatting and not meant for desktop yet. Unlike the official VSCO platform, this gallery does not require a login to view all images, making it more user-friendly for casual viewing. This clone is very barebones, so it's easy to customize and adjust however you'd like.
 
 ## Features
 
