@@ -4,7 +4,7 @@ This is a basic clone of a VSCO gallery, currently optimized for mobile formatti
 
 ## Features
 
-- **No login required:** Easily view all gallery images without the need for an account.
+- **No login required:** Easily view **all** gallery images without the need for an account.
 - **Mobile-optimized:** The gallery is formatted for mobile and currently doesn't support desktop formatting.
 - **Simple gallery setup:** Just place your images in the `vsco_images` folder and they will be displayed automatically.
 
