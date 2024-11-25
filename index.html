@@ -14,6 +14,32 @@
       padding: 0;
     }
 
+    /* Desktop sidebar */
+    .sidebar {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 180px;
+      height: 100vh;
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .sidebar .logo {
+      margin-bottom: 40px;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      padding: 10px 0;
+      font-size: 16px;
+    }
+
+    /* Mobile header */
     .header {
       background-color: #000;
       color: #fff;
@@ -69,14 +95,13 @@
       font-family: 'Roboto', sans-serif;
     }
 
-    /* Full-width dropdown menu styles */
     .dropdown-menu {
       display: none;
       background-color: #000;
       color: #fff;
       width: 100%;
       position: absolute;
-      top: 45px; /* Adjust based on your header height */
+      top: 45px;
       left: 0;
       padding: 20px 0;
       text-align: left;
@@ -95,21 +120,70 @@
       background-color: #444;
     }
 
-    /* Show the dropdown when toggled */
     .dropdown.active .dropdown-menu {
       display: block;
     }
 
-    /* Menu icon */
     .menu-icon {
       cursor: pointer;
     }
-  </style>
 
+    /* Desktop styles */
+    @media (min-width: 768px) {
+      .header {
+        display: none;
+      }
+
+      .sidebar {
+        display: block;
+      }
+
+      .main-content {
+        margin-left: 220px;
+      }
+
+      .gallery {
+        column-count: 3;
+        padding: 30px;
+      }
+    }
+
+    /* Large desktop styles */
+    @media (min-width: 1200px) {
+      .gallery {
+        column-count: 4;
+      }
+    }
+
+    /* Small desktop/tablet styles */
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .gallery {
+        column-count: 3;
+      }
+    }
+
+    /* Mobile styles */
+    @media (max-width: 767px) {
+      .gallery {
+        column-count: 2;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Desktop Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <a href="/">
+        <img src="./vsco_images/icon.png" alt="Logo" width="32" height="32">
+      </a>
+    </div>
+    <a href="https://github.com/braindead-dev/VSCO-gallery-clone/">github project</a>
+    <a href="https://vsco.co/username/gallery">visit VSCO profile</a>
+  </div>
 
+  <!-- Mobile Header -->
   <div class="header">
     <div class="logo">
       <a href="/">
@@ -117,7 +191,6 @@
       </a>
     </div>
 
-    <!-- Dropdown Menu -->
     <div class="dropdown">
       <div class="menu-icon" onclick="toggleMenu()">
         <svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -129,28 +202,33 @@
       <div class="dropdown-menu">
         <a href="https://github.com/braindead-dev/VSCO-gallery-clone/">github project</a>
         <a href="https://vsco.co/username/gallery">visit VSCO profile</a>
-        <!-- add other menu URLs as desired -->
       </div>
     </div>
   </div>
 
-  <div class="profile" style="text-decoration: none; color: inherit;">
-    <img src="./vsco_images/avatar.jpg" alt="Profile Picture" class="profile-pic">
-    <a href="https://vsco.co/username/gallery" style="text-decoration: none;">
-      <h2>name</h2>
-    </a>
+  <div class="main-content">
+    <div class="profile">
+      <img src="./vsco_images/avatar.jpg" alt="Profile Picture" class="profile-pic">
+      <a href="https://vsco.co/username/gallery" style="text-decoration: none;">
+        <h2>name</h2>
+      </a>
+      <a href="https://vsco.co/username/gallery" style="text-decoration: none;">
+        <p>username</p>
+      </a>
+    </div>
 
-    <a href="https://vsco.co/username/gallery" style="text-decoration: none;">
-      <p>username</p>
-    </a>
-  </div>
-
-  <div class="gallery">
-    <div class="column" id="column1"></div>
-    <div class="column" id="column2"></div>
+    <div class="gallery">
+      <div class="column" id="column1"></div>
+      <div class="column" id="column2"></div>
+    </div>
   </div>
 
   <script>
+    function toggleMenu() {
+      const dropdown = document.querySelector('.dropdown');
+      dropdown.classList.toggle('active');
+    }
+
     // Function to dynamically load images
     (function () {
       const gallery = document.querySelector('.gallery');
@@ -180,7 +258,6 @@
       loadImage(imageIndex);
     })();
   </script>
-
 </body>
 
 </html>
