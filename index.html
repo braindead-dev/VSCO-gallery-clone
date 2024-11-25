@@ -230,74 +230,49 @@
     }
   
     // Function to dynamically load images based on the number of columns
+    // Function to dynamically load images
     (function () {
-      const gallery = document.querySelector('.gallery');
+      const column1 = document.getElementById('column1');
+      const column2 = document.getElementById('column2');
       let imageIndex = 1;
-  
-      // Function to get the number of columns dynamically
-      function getNumberOfColumns() {
-        return parseInt(window.getComputedStyle(gallery).columnCount, 10) || 2;
-      }
-  
-      // Create column containers dynamically
-      function createColumns(numColumns) {
-        gallery.innerHTML = ''; // Clear existing columns
-        const columns = [];
-        for (let i = 0; i < numColumns; i++) {
-          const column = document.createElement('div');
-          column.className = 'column';
-          gallery.appendChild(column);
-          columns.push(column);
-        }
-        return columns;
-      }
-  
-      function loadImage(index, columns, columnHeights) {
+
+      let columnHeights = [0, 0]; // Index 0 for column1, index 1 for column2
+
+      function loadImage(index) {
         const imgSrc = `./vsco_images/image${index}.jpg`;
         const img = new Image();
         img.src = imgSrc;
-  
+
         img.onload = function () {
           const galleryItem = document.createElement('div');
           galleryItem.className = 'gallery-item';
           galleryItem.appendChild(img);
-  
+
           // Get the aspect ratio to estimate height
           const aspectRatio = img.naturalHeight / img.naturalWidth;
-  
-          // Find the column with the least height
-          const columnIndex = columnHeights.indexOf(Math.min(...columnHeights));
-          columns[columnIndex].appendChild(galleryItem);
-  
+
+          // Determine which column has less total height
+          const columnIndex = columnHeights[0] <= columnHeights[1] ? 0 : 1;
+          const column = columnIndex === 0 ? column1 : column2;
+
+          column.appendChild(galleryItem);
+
           // Update the total height of the column
           columnHeights[columnIndex] += aspectRatio;
-  
+
           // Load the next image
-          loadImage(index + 1, columns, columnHeights);
+          loadImage(index + 1);
         };
-  
+
         img.onerror = function () {
-          // Stop loading further images if the image does not exist
+          // Image doesn't exist; stop loading further images
         };
       }
+
+      // Start loading images from image1.jpg
+      loadImage(imageIndex);
+      })();
   
-      function setupGallery() {
-        const numColumns = getNumberOfColumns();
-        const columns = createColumns(numColumns);
-        const columnHeights = Array(numColumns).fill(0); // Initialize column heights
-  
-        // Start loading images
-        loadImage(imageIndex, columns, columnHeights);
-      }
-  
-      // Initialize gallery on load
-      setupGallery();
-  
-      // Reinitialize gallery on window resize
-      window.addEventListener('resize', () => {
-        setupGallery();
-      });
-    })();
   </script>
 </body>
 
